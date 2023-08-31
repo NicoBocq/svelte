@@ -2,14 +2,36 @@
 	export let disabled = false;
 	export let href: string | undefined = undefined;
 	export let loading: boolean = false;
+	export let label: string = '';
 </script>
 
-<svelte:element this={href ? 'a' : 'button'} type={href ? undefined : 'button'} role={href ? 'link' : 'button'} {href} {disabled} on:click on:change on:keydown on:keyup on:touchstart on:touchend on:touchcancel on:mouseenter on:mouseleave {...$$restProps} class="button">
-		{#if loading}
-			Loading...
-		{:else}
-			<slot />
-		{/if}
+<svelte:element
+	this={href ? 'a' : 'button'}
+	type={href ? undefined : 'button'}
+	role={href ? 'link' : 'button'}
+	{href}
+	{disabled}
+	on:click
+	on:change
+	on:keydown
+	on:keyup
+	on:touchstart
+	on:touchend
+	on:touchcancel
+	on:mouseenter
+	on:mouseleave
+	{...$$restProps}
+	class="button"
+>
+	{#if loading}
+		Loading...
+	{:else}
+		<slot>
+			{#if label}
+				{label}
+			{/if}
+		</slot>
+	{/if}
 </svelte:element>
 
 <style>
